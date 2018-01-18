@@ -1,0 +1,7 @@
+import demo.User
+
+model {
+    User user
+}
+
+json jsonapi.render(user)
