@@ -1,0 +1,10 @@
+import demo.User
+
+inherits template:'identification'
+model {
+    User user
+}
+
+json {
+    attributes tmpl.attributes(user)
+}

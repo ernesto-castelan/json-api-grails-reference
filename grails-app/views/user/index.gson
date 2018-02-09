@@ -4,4 +4,6 @@ model {
     List<User> userList
 }
 
-json jsonapi.render(userList)
+json {
+    data tmpl.user(userList)
+}

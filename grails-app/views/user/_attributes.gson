@@ -1,0 +1,11 @@
+import demo.User
+
+model {
+    User user
+}
+
+json {
+    username user.username
+    fullname user.fullname
+    website user.website
+}

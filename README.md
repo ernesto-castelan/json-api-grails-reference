@@ -13,7 +13,7 @@ Made for:
 + [ ] Content Negotiation
     + [ ] Server Responsibilities
 + [ ] Fetching Data
-    + [ ] Fetching Resources
+    + [x] Fetching Resources (`users`)
     + [ ] Fetching Relationships
     + [ ] Inclusion of Related Resources
     + [ ] Sparse Fieldsets

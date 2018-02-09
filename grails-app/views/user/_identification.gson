@@ -5,6 +5,6 @@ model {
 }
 
 json {
-    data tmpl.user(user)
+    type "users"
+    id user.id.toString()
 }
-
