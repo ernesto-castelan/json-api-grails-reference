@@ -5,5 +5,5 @@ model {
 }
 
 json {
-    data tmpl.user(userList)
+    data tmpl.user(userList) ?: []
 }
