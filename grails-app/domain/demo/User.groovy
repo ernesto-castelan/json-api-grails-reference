@@ -17,4 +17,8 @@ class User {
     static mapping = {
         version false
     }
+
+    static String getResourceType() {
+        'users'
+    }
 }

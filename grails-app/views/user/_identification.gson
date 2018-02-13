@@ -5,6 +5,6 @@ model {
 }
 
 json {
-    type "users"
+    type user.resourceType
     id user.id.toString()
 }
