@@ -36,4 +36,15 @@ class FieldsetSpec extends Specification implements GrailsUnitTest {
             'data-b'        |'nodef'        ||true              |'data-b is not processed as valid fieldset'
             'data-c'        |'nodef'        ||true              |'data-c is not processed as valid fieldset'
     }
+
+    void "Test contains method with empty params"() {
+        given: "A fieldset instance"
+            Fieldset fieldset = new Fieldset([:])
+
+        when: "Calling the method"
+            Boolean result = fieldset.contains('nodef', 'something')
+
+        then: "Result is expected"
+            result == true
+    }
 }

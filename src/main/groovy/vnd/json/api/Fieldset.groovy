@@ -6,23 +6,18 @@ import java.util.regex.Pattern
 class Fieldset {
 
     /** Regex pattern for the fields parameters */
-    private static final Pattern FIELDS_PATTERN = ~/^fields\[(.+)]$/
+    private static final Pattern PARAM_FIELDS_PATTERN = ~/^fields\[(.+)]$/
 
     /** Internal fields list */
     private Map fields
 
     /**
-     * Default constructor. Populates the internal field list from the request parameters.
+     * Default constructor. Populates the internal field list.
      *
      * @param params Request parameters
      */
     Fieldset(Map params) {
-        Map fieldsParams = params.findAll { String key, String value -> key ==~ FIELDS_PATTERN }
-        fields = fieldsParams.collectEntries { String key, String value ->
-            Matcher regexMatch = (key =~ FIELDS_PATTERN)
-            String fieldName = regexMatch[0][1]
-            [(fieldName):value.split(',')]
-        }
+        fields = parseParams(params)
     }
 
     /**
@@ -36,5 +31,20 @@ class Fieldset {
     Boolean contains(String resourceType, String fieldName) {
         if (fields.containsKey(resourceType)) fields[resourceType].contains(fieldName)
         else true
+    }
+
+    /**
+     * Finds and parses the fields parameters from the request parameters.
+     *
+     * @param params Request parameters
+     * @return A map with the structure [type:[field,field,...], type:[field, ...], ...]
+     */
+    private static Map parseParams(Map params) {
+        Map fieldsParams = params.findAll { String key, String value -> key ==~ PARAM_FIELDS_PATTERN }
+        fieldsParams.collectEntries { String key, String value ->
+            Matcher regexMatch = (key =~ PARAM_FIELDS_PATTERN)
+            String resourceType = regexMatch[0][1]
+            [(resourceType):value.split(',')]
+        }
     }
 }
