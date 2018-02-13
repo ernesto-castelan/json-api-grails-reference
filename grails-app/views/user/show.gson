@@ -1,10 +1,12 @@
 import demo.User
+import vnd.json.api.Fieldset
 
 model {
     User user
+    Fieldset fieldset
 }
 
 json {
-    data tmpl.user(user)
+    data tmpl.user(user:user, fieldset:fieldset)
 }
 

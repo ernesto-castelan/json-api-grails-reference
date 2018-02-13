@@ -16,7 +16,7 @@ Made for:
     + [x] Fetching Resources (`users`)
     + [ ] Fetching Relationships
     + [ ] Inclusion of Related Resources
-    + [ ] Sparse Fieldsets
+    + [x] Sparse Fieldsets (partial, `users`)
     + [ ] Sorting
     + [ ] Pagination
     + [ ] Filtering

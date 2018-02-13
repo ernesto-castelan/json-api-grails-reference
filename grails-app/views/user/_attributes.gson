@@ -1,11 +1,13 @@
 import demo.User
+import vnd.json.api.Fieldset
 
 model {
     User user
+    Fieldset fieldset
 }
 
 json {
-    username user.username
-    fullname user.fullname
-    website user.website
+    if (fieldset.contains(user.resourceType, 'username')) username user.username
+    if (fieldset.contains(user.resourceType, 'fullname')) fullname user.fullname
+    if (fieldset.contains(user.resourceType, 'website')) website user.website
 }

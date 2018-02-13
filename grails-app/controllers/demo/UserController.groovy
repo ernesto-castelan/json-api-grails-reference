@@ -1,8 +1,7 @@
 package demo
 
 
-import grails.rest.*
-import grails.converters.*
+import vnd.json.api.Fieldset
 
 class UserController {
 
@@ -10,11 +9,13 @@ class UserController {
     static responseFormats = ['json']
 
     def index() {
+        Fieldset fieldset = new Fieldset(params)
         List<User> userList = User.list()
-        respond userList
+        respond userList:userList, fieldset:fieldset
     }
 
     def show(Long id) {
+        Fieldset fieldset = new Fieldset(params)
         User user = User.get(id)
 
         if (!user) {
@@ -22,6 +23,6 @@ class UserController {
             return
         }
 
-        respond user
+        respond user:user, fieldset:fieldset
     }
 }

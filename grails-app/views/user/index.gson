@@ -1,9 +1,11 @@
 import demo.User
+import vnd.json.api.Fieldset
 
 model {
     List<User> userList
+    Fieldset fieldset
 }
 
 json {
-    data tmpl.user(userList) ?: []
+    data tmpl.user(userList, [fieldset:fieldset]) ?: []
 }

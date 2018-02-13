@@ -1,10 +1,12 @@
 import demo.User
+import vnd.json.api.Fieldset
 
 inherits template:'identification'
 model {
     User user
+    Fieldset fieldset
 }
 
 json {
-    attributes tmpl.attributes(user)
+    attributes tmpl.attributes(user:user, fieldset:fieldset)
 }
