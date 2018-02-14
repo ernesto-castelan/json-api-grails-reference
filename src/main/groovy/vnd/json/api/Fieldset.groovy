@@ -3,13 +3,19 @@ package vnd.json.api
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+/**
+ * Fieldset parses and stores the sparse fieldset request according to
+ * http://jsonapi.org/format/1.0/#fetching-sparse-fieldsets
+ *
+ * Rendering the requested fields is responsibility of the views.
+ */
 class Fieldset {
 
     /** Regex pattern for the fields parameters */
     private static final Pattern PARAM_FIELDS_PATTERN = ~/^fields\[(.+)]$/
 
     /** Internal fields list */
-    private Map fields
+    private final Map fields
 
     /**
      * Default constructor. Populates the internal field list.

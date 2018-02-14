@@ -124,9 +124,9 @@ ruleset {
     //DuplicateStringLiteral
 
     // rulesets/enhanced.xml
-    CloneWithoutCloneable
-    JUnitAssertEqualsConstantActualValue
-    UnsafeImplementationAsMap
+    //CloneWithoutCloneable
+    //JUnitAssertEqualsConstantActualValue
+    //UnsafeImplementationAsMap
 
     // rulesets/exceptions.xml
     CatchArrayIndexOutOfBoundsException
@@ -157,7 +157,9 @@ ruleset {
     BracesForIfElse
     BracesForMethod
     BracesForTryCatchFinally
-    ClassJavadoc
+    ClassJavadoc {
+        doNotApplyToFilesMatching = '.*/demo/.*'
+    }
     ClosureStatementOnOpeningLineOfMultipleLineClosure
     ConsecutiveBlankLines
     FileEndsWithoutNewline
@@ -330,7 +332,7 @@ ruleset {
     // rulesets/size.xml
     AbcMetric //(Requires the GMetrics jar)
     ClassSize
-    CrapMetric //(Requires the GMetrics jar and a Cobertura coverage file)
+    //CrapMetric //(Requires the GMetrics jar and a Cobertura coverage file)
     CyclomaticComplexity //(Requires the GMetrics jar)
     MethodCount
     MethodSize
