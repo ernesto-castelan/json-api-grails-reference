@@ -11,8 +11,8 @@ import java.util.regex.Pattern
  */
 class Fieldset {
 
-    /** Regex pattern for the fields parameters */
     private static final Pattern PARAM_FIELDS_PATTERN = ~/^fields\[(.+)]$/
+    private static final String FIELD_SEPARATOR = ','
 
     /** Internal fields list */
     private final Map fields
@@ -50,7 +50,7 @@ class Fieldset {
         fieldsParams.collectEntries { String key, String value ->
             Matcher regexMatch = (key =~ PARAM_FIELDS_PATTERN)
             String resourceType = regexMatch[0][1]
-            [(resourceType):value.split(',')]
+            [(resourceType):value.split(FIELD_SEPARATOR)]
         }
     }
 }

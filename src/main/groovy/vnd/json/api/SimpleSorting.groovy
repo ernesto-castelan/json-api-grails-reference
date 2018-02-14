@@ -15,19 +15,20 @@ class SimpleSorting {
     private static final String DESCENDING_PREFIX = '-'
 
     /** Internal sorting list */
-    private List<Map> sortList
+    private final List<Map> sortList
 
-    /** Internal error list */
-    private Error error
+    /** Internal error */
+    private final Error error
 
     /**
-     * Default constructor. Validate parameters and populates the internal sorting list.
+     * Default constructor. Populates the internal sort list or the internal error accordingly.
      *
      * @param params Request parameters
      */
     SimpleSorting(Map params, List<String> allowedFields) {
-        parseParams(params)
-        validate(allowedFields)
+        sortList = parseParams(params)
+        error = validate(sortList, allowedFields)
+        if (error) sortList = null
     }
 
     /**
@@ -49,13 +50,14 @@ class SimpleSorting {
     }
 
     /**
-     * Parses the sort parameter from the request parameters and populates the internal sorting list.
+     * Parses the sort parameter from the request parameters.
      *
      * @param params Request parameters
+     * @return A list of maps with the structure [[sort:field, order:'asc'], [sort:field, order:'desc'], ...]
      */
-    private void parseParams(Map params) {
+    private static List<Map> parseParams(Map params) {
         if (params[PARAM_SORT_NAME]) {
-            sortList = params[PARAM_SORT_NAME].split(FIELD_SEPARATOR).collect { String field ->
+            params[PARAM_SORT_NAME].split(FIELD_SEPARATOR).collect { String field ->
                 if (field.startsWith(DESCENDING_PREFIX)) [sort:field.drop(DESCENDING_PREFIX.length()), order:'desc']
                 else [sort:field, order:'asc']
             }
@@ -63,31 +65,32 @@ class SimpleSorting {
     }
 
     /**
-     * Validates the internal sorting list against the limitations and the allowed fields.
-     * In case of error, populates the internal error list and clears the internal sorting list.
+     * Validates the sorting list against the allowed fields and the SimpleSorting limitations.
      *
+     * @param sortList The internal sorting list
      * @param allowedFields Allowed sort fields
+     * @return The corresponding error if any
      */
-    private void validate(List<String> allowedFields) {
+    private static Error validate(List<Map> sortList, List<String> allowedFields) {
         if (sortList) {
             if (!allowedFields) {
-                error = new Error(status:400,
-                                  code:'sort-not-supported',
-                                  title:'Sorting is not supported for this endpoint')
+                new Error(status:400,
+                          code:'sort-not-supported',
+                          title:'Sorting is not supported for this endpoint',
+                          sourceParameter:PARAM_SORT_NAME)
             }
             else if (sortList.size() > 1) {
-                error = new Error(status:400,
-                                  code:'sort-many-fields',
-                                  title:'Multiple sort fields are not supported for this endpoint')
+                new Error(status:400,
+                          code:'sort-many-fields',
+                          title:'Multiple sort fields are not supported for this endpoint',
+                          sourceParameter:PARAM_SORT_NAME)
             }
             else if (!allowedFields.contains(sortList[0].sort)) {
-                error = new Error(status:400,
-                                  code:'sort-bad-field',
-                                  title:'The specified sort field is not valid for this resource')
+                new Error(status:400,
+                          code:'sort-bad-field',
+                          title:'The specified sort field is not valid for this resource',
+                          sourceParameter:PARAM_SORT_NAME)
             }
-        }
-        if (error) {
-            sortList = null
         }
     }
 }
