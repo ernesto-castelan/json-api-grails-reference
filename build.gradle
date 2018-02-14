@@ -18,6 +18,7 @@ apply plugin:"idea"
 apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.plugins.views-json"
+apply plugin:"codenarc"
 
 repositories {
     mavenLocal()
@@ -99,4 +100,28 @@ integrationTest {
 
 mergeTestReports {
     destinationDir = file("$buildDir/reports/test/html/")
+}
+
+codenarc {
+    toolVersion = '1.0'
+    config = resources.text.fromFile('grails-app/conf/codenarc-ruleset.groovy')
+    ignoreFailures = true
+
+    codenarcMain {
+        exclude "**/Application.groovy"
+        exclude "**/BootStrap.groovy"
+        exclude "**/UrlMappings.groovy"
+
+        reports {
+            html {
+                enabled = true
+                destination = file("${codenarc.reportsDir}/codenarc.html")
+            }
+
+            xml {
+                enabled =  true
+                destination = file("${codenarc.reportsDir}/codenarc.xml")
+            }
+        }
+    }
 }
