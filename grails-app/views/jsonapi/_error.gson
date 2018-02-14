@@ -1,0 +1,21 @@
+import vnd.json.api.Error
+
+model {
+    Error error
+}
+
+json {
+    if (error.id) id error.id
+    if (error.about) links {
+        about error.about
+    }
+    if (error.status) status error.status.toString()
+    if (error.code) code error.code
+    if (error.title) title error.title
+    if (error.detail) detail error.detail
+    if (error.sourcePointer || error.sourceParameter) source {
+        if (error.sourcePointer) pointer error.sourcePointer
+        if (error.sourceParameter) parameter error.sourceParameter
+    }
+    if (error.meta) meta error.meta
+}

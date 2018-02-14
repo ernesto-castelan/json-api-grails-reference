@@ -1,0 +1,9 @@
+import vnd.json.api.Error
+
+model {
+    List<Error> errorList
+}
+
+json {
+    errors tmpl.error(errorList) ?: []
+}
