@@ -16,7 +16,7 @@ Made for:
     + [x] Fetching Resources (`users`)
     + [ ] Fetching Relationships
     + [ ] Inclusion of Related Resources
-    + [x] Sparse Fieldsets (partial, `users`)
+    + [x] Sparse Fieldsets (`users`)
     + [x] Sorting (`users`)
     + [ ] Pagination
     + [ ] Filtering
@@ -28,3 +28,10 @@ Made for:
 + [ ] Errors
     + [ ] Processing Errors
     + [ ] Error Objects
+
+## Known limitations
++ Sparse Fieldsets
+    + Using fieldsets can leave empty `attributes` and `relationships` objects
++ Sorting
+    + Only one sort field is supported
+    + No dot-separated fields are supported
