@@ -21,4 +21,8 @@ class User {
     static String getResourceType() {
         'users'
     }
+
+    static List<String> getSortFields() {
+        ['id', 'username', 'fullname', 'website', 'dateCreated', 'lastUpdated']
+    }
 }
