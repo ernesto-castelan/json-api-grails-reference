@@ -1,7 +1,7 @@
 Feature: Test user data fetching
 
 Background:
-    Given url 'http://127.0.0.1:8080'
+    Given url serverUrl
 
 Scenario: Fetch empty user list
     Given path '/users'

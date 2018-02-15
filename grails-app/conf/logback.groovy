@@ -34,3 +34,10 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
 root(ERROR, ['STDOUT'])
+
+appender('KARATE', ConsoleAppender) {
+    encoder(PatternLayoutEncoder) {
+        pattern = "%d{HH:mm:ss.SSS} %-5level - %msg%n"
+    }
+}
+logger("com.intuit.karate", INFO, ['KARATE'], false)
