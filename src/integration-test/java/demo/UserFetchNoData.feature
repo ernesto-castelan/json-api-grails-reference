@@ -8,7 +8,7 @@ Scenario: Fetch empty user list
     Given path '/users'
     When method get
     Then status 200
-    And match response == { 'data':[] }
+    And match response == {'data':[]}
 
 Scenario: Fetch non existing user
     Given path '/users/1'
